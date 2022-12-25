@@ -13,6 +13,7 @@ export const Profile = () => {
     const [unpdaidMonth, setUnpdaidMonth] = React.useState(0)
     const [password, setPassword] = React.useState('')
     const [errorMessage, setErrorMessage] = React.useState('')
+    const [paidTime, setPaidTime] = React.useState(0)
     const username = useDisplayStore(state => state.username)
     const libraryId = useDisplayStore(state => state.libraryId)
     const switchRoute = useDisplayStore(state => state.switchRoute)
@@ -28,6 +29,7 @@ export const Profile = () => {
             const currentDate = new Date()
             const diff = moment(currentDate).diff(nextCycleData, 'days')
             if (diff <= 0) {
+                setPaidTime(parseInt(Math.abs(diff) / 30))
                 setIsPaid(true)
             }
             else {
@@ -37,7 +39,6 @@ export const Profile = () => {
         }
     }
     const handlePayment = () => {
-        if (isPaid) return
         setIsModalOpen(true)
     }
     const handleDelete = () => {
@@ -168,7 +169,7 @@ export const Profile = () => {
                         <Td>{data.doj}</Td>
                     </Tr>
                     <Tr>
-                        <Td><Button onClick={handlePayment} textColor={isPaid ? 'green' : 'red'}>{isPaid ? `PAID` : `PAY | ${unpdaidMonth}`}</Button></Td>
+                        <Td><Button onClick={handlePayment} textColor={isPaid ? 'green' : 'red'}>{isPaid ? (paidTime ? `PAID | ${paidTime}` : `PAID`) : `PAY | ${unpdaidMonth}`}</Button></Td>
                         <Td><Button onClick={handleUpdate} colorScheme={'yellow'} variant={'solid'}>Update</Button></Td>
                         <Td></Td>
                         <Td></Td>
