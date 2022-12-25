@@ -1,6 +1,6 @@
 {
   "homepage": "https://pa2.ivehement.com",
-  "name": "liber",
+  "name": "pa2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
