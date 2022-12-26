@@ -5,6 +5,16 @@ import moment from "moment"
 import React, { useEffect } from "react"
 import { useDisplayStore } from "../../../store/displayStore"
 
+const batchMapper = {
+    'M': 'Morning',
+    'A': 'Afternoon',
+    'E': 'Evening',
+    'MA': 'Morning + Afternoon',
+    'AE': 'Afternoon + Evening',
+    'ME': 'Morning + Evening',
+    'F': 'Full Day'
+}
+
 export const Profile = () => {
     const [data, setData] = React.useState({})
     const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -158,7 +168,7 @@ export const Profile = () => {
                     </Tr>
                     <Tr>
                         <Td>Batch Timing</Td>
-                        <Td>{data.batchTiming}</Td>
+                        <Td>{batchMapper[data.batchTiming]}</Td>
                     </Tr>
                     <Tr>
                         <Td>Seat</Td>
