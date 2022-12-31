@@ -34,13 +34,13 @@ export const Update = () => {
     const [success, setSuccess] = React.useState(false)
     const libraryId = useDisplayStore(state => state.libraryId)
     const getSeats = async () => {
-        const response = await axios.get(' https://liber.herokuapp.com/liber/v1/seats')
+        const response = await axios.get(' https://pa2-api.onrender.com/liber/v1/seats')
         if(response.data) {
             setSeats(JSON.parse(response.data.data))
         }
     }
     const getProfileData = async () => {
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/candidate/profile', {
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/candidate/profile', {
             libraryId: libraryId
         })
         if (response) {
@@ -63,7 +63,7 @@ export const Update = () => {
         setLoad(true)
         const notFilled = Object.values(values).filter(val => val === '')
         if (notFilled.length !== 0) return
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/candidate/update', {
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/candidate/update', {
             values: values
         }).finally(() => {
             setLoad(false)

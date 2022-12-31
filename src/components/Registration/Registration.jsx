@@ -32,7 +32,7 @@ export const Registration = () => {
     const [load, setLoad] = React.useState(false)
     const [success, setSuccess] = React.useState(false)
     const getSeats = async () => {
-        const response = await axios.get(' https://liber.herokuapp.com/liber/v1/seats')
+        const response = await axios.get(' https://pa2-api.onrender.com/liber/v1/seats')
         if(response.data) {
             setSeats(JSON.parse(response.data.data))
         }
@@ -52,7 +52,7 @@ export const Registration = () => {
         const notFilled = Object.values(values).filter(val => val === '')
         if (notFilled.length !== 0) return
         setLoad(true)
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/candidate/add', {
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/candidate/add', {
             values: values
         }).finally(() => {
             setLoad(false)

@@ -12,7 +12,7 @@ export const Login = () => {
     const setMainUsername = useDisplayStore(state => state.setUsername)
     const handleLogin = async () => {
         if(username.length && password.length) {
-            const response = await axios.post(' https://liber.herokuapp.com/liber/v1/user/validate', {
+            const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/user/validate', {
                 username: username,
                 password: password
             })

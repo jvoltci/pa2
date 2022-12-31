@@ -7,7 +7,7 @@ import { useDisplayStore } from "../../store/displayStore"
 export const Active = () => {
     const [candidates, setCandidates] = React.useState([])
     const getCandidates = async () => {
-        const response = await axios.get(' https://liber.herokuapp.com/liber/v1/candidate')
+        const response = await axios.get(' https://pa2-api.onrender.com/liber/v1/candidate')
         const sortedData = response.data.sort((a, b) => {
             if (a['name'].toUpperCase() > b['name'].toUpperCase()) return 1
             if (a['name'].toUpperCase() < b['name'].toUpperCase()) return -1

@@ -24,12 +24,13 @@ export const Profile = () => {
     const [password, setPassword] = React.useState('')
     const [errorMessage, setErrorMessage] = React.useState('')
     const [paidTime, setPaidTime] = React.useState(0)
+    const [process, setProcess] = React.useState(false)
     const username = useDisplayStore(state => state.username)
     const libraryId = useDisplayStore(state => state.libraryId)
     const switchRoute = useDisplayStore(state => state.switchRoute)
     const handlePassword = (t) => setPassword(t.value)
     const getProfileData = async () => {
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/candidate/profile', {
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/candidate/profile', {
             libraryId: libraryId
         })
         if (response) {
@@ -55,7 +56,7 @@ export const Profile = () => {
         setIsDeleteModalOpen(true)
     }
     const handleDeleteClick = async () => {
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/candidate/delete', {
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/candidate/delete', {
             libraryId,
             username,
             password
@@ -77,7 +78,8 @@ export const Profile = () => {
         getProfileData()
     }, [])
     const handlePayClick = async () => {
-        const response = await axios.post(' https://liber.herokuapp.com/liber/v1/user/validate/pay', {
+        setProcess(true)
+        const response = await axios.post(' https://pa2-api.onrender.com/liber/v1/user/validate/pay', {
             libraryId,
             username,
             password
@@ -85,10 +87,12 @@ export const Profile = () => {
         if (response && response.data.message === 'success') {
             getProfileData()
             setIsModalOpen(false)
+            setProcess(false)
         }
         else if (response) {
             setErrorMessage(response.data.message)
             setTimeout(() => setErrorMessage(''), 6000)
+            setProcess(false)
         }
     }
     return (
@@ -195,8 +199,8 @@ export const Profile = () => {
                             </ModalBody>
 
                             <ModalFooter>
-                                {errorMessage.length ? <Box style={{ display: 'inlineBlock', textColor: 'red' }}>{errorMessage}</Box> : null}
-                                <Button onClick={handlePayClick} colorScheme={'red'} variant='solid'>Pay</Button>
+                                {errorMessage.length ? <Box style={{ display: 'inlineBlock', color: 'red' }}>{errorMessage}</Box> : null}
+                                <Button isLoading={process} onClick={handlePayClick} colorScheme={'red'} variant='solid'>Pay</Button>
                             </ModalFooter>
                         </ModalContent>
                     </Modal>
